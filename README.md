@@ -1,4 +1,5 @@
 # Tito Node API
+[![Build Status](https://travis-ci.org/mikemimik/tito-node-api.svg?branch=master)](https://travis-ci.org/mikemimik/tito-node-api)
 
 ## UNDER DEVELOPMENT
 
