@@ -1,10 +1,13 @@
 'use strict';
 
 const proxyquire = require('proxyquire').noCallThru();
+const promiseTest = require('blue-tape');
 const test = require('tape');
 
 const Events = proxyquire('../../lib/events', {
-  'request-promise': (options) => Promise.resolve({}),
+  'request-promise': (options) => new Promise((resolve, reject) => {
+    return (options.bail) ? reject(options) : resolve(options);
+  }),
   '../src/logger': {
     getLogger: (level) => ({
       silly: () => {},
@@ -47,8 +50,70 @@ test('Events Class Constructor', (t) => {
   t.end();
 });
 
-test('Events Class Create Method', (t) => {
+test('Events Class Create Method Validation', (t) => {
+  const options = { defaultRequestOptions: {}, uri: 'api/team' };
+
+  t.throws(
+    () => new Events(options).create(),
+    /missing.param.DATA/,
+    'should throw if missing data param'
+  );
+
+  t.throws(
+    () => new Events(options).create({}),
+    /missing.option.TITLE/,
+    'should throw if missing title option'
+  );
+
+  t.throws(
+    () => new Events(options).create({ title: 'a' }),
+    /missing.option.STARTDATE/,
+    'should throw if missing startData option'
+  );
+
+  t.throws(
+    () => new Events(options).create({ title: 'a', startDate: '2000-01-01' }),
+    /missing.option.ENDDATE/,
+    'should throw if missing endDate option'
+  );
+
   t.end();
+});
+
+promiseTest('Events Class Create Method', (t) => {
+  const options = { defaultRequestOptions: {}, uri: 'api/team' };
+  const eventData = {
+    title: 'Some Event',
+    startDate: '2000-01-01',
+    endDate: '2000-01-02',
+    bail: false // USED FOR TESTING ONLY
+  };
+  return Promise.all([
+    new Events(options).create(eventData).then((output) => {
+      console.log('output:', output);
+      t.ok(output.method, 'should have a method property');
+      t.equals(
+        output.method,
+        'post',
+        'should have a method value of POST'
+      );
+
+      t.ok(output.url, 'should have a url property');
+      t.equals(
+        output.url,
+        'api/team/events',
+        'should have a compused url'
+      );
+
+      t.ok(output.headers['Content-Type'], 'should have a Content-Type property');
+
+      t.equals(
+        output.headers['Content-Type'],
+        'application/json',
+        'should have a Content-Type value of application/json'
+      );
+    })
+  ]);
 });
 
 test('Events Class Get Method', (t) => {
