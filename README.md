@@ -1,4 +1,4 @@
-# Tito Node API [![Build Status](https://travis-ci.org/mikemimik/tito-node-api.svg?branch=master)](https://travis-ci.org/mikemimik/tito-node-api)
+# Tito Node API [![Build Status](https://travis-ci.org/mikemimik/tito-node-api.svg?branch=master)](https://travis-ci.org/mikemimik/tito-node-api) [![Coverage Status](https://coveralls.io/repos/github/mikemimik/tito-node-api/badge.svg?branch=master)](https://coveralls.io/github/mikemimik/tito-node-api?branch=master)
 
 ## UNDER DEVELOPMENT
 
