@@ -1,11 +1,16 @@
 'use strict';
 
-const proxyquire = require('proxyquire');
+const proxyquire = require('proxyquire').noCallThru();
 const test = require('tape');
 
 const Events = proxyquire('../../lib/events', {
-  'request-promise': (options) => {
-    return Promise.resolve({});
+  'request-promise': (options) => Promise.resolve({}),
+  '../src/logger': {
+    getLogger: (level) => ({
+      silly: () => {},
+      debug: () => {},
+      error: () => {}
+    })
   }
 });
 

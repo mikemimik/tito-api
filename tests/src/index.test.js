@@ -1,6 +1,6 @@
 'use strict';
 
-const proxyquire = require('proxyquire');
+const proxyquire = require('proxyquire').noCallThru();
 const test = require('tape');
 
 class Mock {
@@ -11,13 +11,13 @@ class Mock {
   }
 }
 
-test('TitoApi Class Constructor', (t) => {
-  const TitoApi = proxyquire('../../src/index', {
-    '../lib/tickets': function mock (innerOptions) { return new Mock(innerOptions); },
-    '../lib/events': function mock (innerOptions) { return new Mock(innerOptions); },
-    '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); }
-  });
+const TitoApi = proxyquire('../../src/index', {
+  '../lib/tickets': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/events': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); }
+});
 
+test('TitoApi Class Constructor', (t) => {
   t.throws(
     () => new TitoApi(),
     /missing.param.OPTIONS/,
