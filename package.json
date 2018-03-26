@@ -4,8 +4,9 @@
   "description": "nodejs tito api module",
   "main": "src/index.js",
   "scripts": {
-    "test": "tape tests/**/*.test.js",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "test:tape": "tape tests/**/*.test.js",
+    "test": "npm run coverage",
+    "coverage": "nyc npm run test:tape && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
     "tito",
