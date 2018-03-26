@@ -14,7 +14,7 @@ const Tickets = proxyquire('../../lib/tickets', {
   }
 });
 
-test('Ticket Class Constructor', (t) => {
+test('Tickets Class Constructor', (t) => {
   t.throws(
     () => new Tickets(),
     /missing.param.OPTIONS/,
