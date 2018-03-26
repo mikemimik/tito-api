@@ -82,37 +82,29 @@ test('Events Class Create Method Validation', (t) => {
 
 promiseTest('Events Class Create Method', (t) => {
   const options = { defaultRequestOptions: {}, uri: 'api/team' };
-  const eventData = {
-    title: 'Some Event',
-    startDate: '2000-01-01',
-    endDate: '2000-01-02',
-    bail: false // USED FOR TESTING ONLY
-  };
+
   return Promise.all([
-    new Events(options).create(eventData).then((output) => {
-      console.log('output:', output);
-      t.ok(output.method, 'should have a method property');
-      t.equals(
-        output.method,
-        'post',
-        'should have a method value of POST'
-      );
+    new Events(options)
+      .create({
+        title: 'Some Event',
+        startDate: '2000-01-01',
+        endDate: '2000-01-02',
+        bail: false // USED FOR TESTING ONLY
+      })
+      .then((output) => {
+        t.ok(output.method, 'should have a method property');
+        t.equals(output.method, 'post', 'should have a method value of POST');
 
-      t.ok(output.url, 'should have a url property');
-      t.equals(
-        output.url,
-        'api/team/events',
-        'should have a compused url'
-      );
+        t.ok(output.url, 'should have a url property');
+        t.equals(output.url, 'api/team/events', 'should have a compused url');
 
-      t.ok(output.headers['Content-Type'], 'should have a Content-Type property');
-
-      t.equals(
-        output.headers['Content-Type'],
-        'application/json',
-        'should have a Content-Type value of application/json'
-      );
-    })
+        t.ok(output.headers['Content-Type'], 'should have a Content-Type property');
+        t.equals(
+          output.headers['Content-Type'],
+          'application/json',
+          'should have a Content-Type value of application/json'
+        );
+      })
   ]);
 });
 
