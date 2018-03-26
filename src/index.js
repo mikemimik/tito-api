@@ -4,6 +4,8 @@ const Tickets = require('../lib/tickets');
 const Events = require('../lib/events');
 const Releases = require('../lib/releases');
 
+const api = 'https://api.tito.io/v2';
+
 class TitoApi {
   constructor(options) {
     if (!options) {
