@@ -1,7 +1,7 @@
 'use strict';
 
 const proxyquire = require('proxyquire').noCallThru();
-const test = require('tape');
+const test = require('blue-tape');
 
 const Tickets = proxyquire('../../lib/tickets', {
   'request-promise': (options) => Promise.resolve({}),

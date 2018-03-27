@@ -1,8 +1,7 @@
 'use strict';
 
 const proxyquire = require('proxyquire').noCallThru();
-const promiseTest = require('blue-tape');
-const test = require('tape');
+const test = require('blue-tape');
 
 const Events = proxyquire('../../lib/events', {
   'request-promise': (options) => new Promise((resolve, reject) => {
@@ -80,7 +79,7 @@ test('Events Class Create Method Validation', (t) => {
   t.end();
 });
 
-promiseTest('Events Class Create Method', (t) => {
+test('Events Class Create Method Promises', (t) => {
   const options = { defaultRequestOptions: {}, uri: 'api/team' };
 
   return Promise.all([

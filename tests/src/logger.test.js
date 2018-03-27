@@ -1,6 +1,6 @@
 'use strict';
 
-const test = require('tape');
+const test = require('blue-tape');
 
 const logger = require('../../src/logger');
 
