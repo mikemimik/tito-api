@@ -68,3 +68,59 @@ test('TitoApi Class Constructor', (t) => {
 
   t.end();
 });
+
+test('TitoApi Module Structure', (t) => {
+  const {
+    Event,
+    Activity,
+    Checkin,
+    CheckinList,
+    Release,
+    Ticket
+  } = TitoApi;
+
+  const ExpectedEvent = require('../../resources/event');
+  const ExpectedActivity = require('../../resources/activity');
+  const ExpectedCheckin = require('../../resources/checkin');
+  const ExpectedCheckinList = require('../../resources/checkinList');
+  const ExpectedRelease = require('../../resources/release');
+  const ExpectedTicket = require('../../resources/ticket');
+
+  t.deepEqual(
+    Event,
+    ExpectedEvent,
+    'should contain an Event resource object model'
+  );
+
+  t.deepEqual(
+    Activity,
+    ExpectedActivity,
+    'should contain an Activity resource object model'
+  );
+
+  t.deepEqual(
+    Checkin,
+    ExpectedCheckin,
+    'should contain a Checkin resource object model'
+  );
+
+  t.deepEqual(
+    CheckinList,
+    ExpectedCheckinList,
+    'should contain a CheckinList resource object model'
+  );
+
+  t.deepEqual(
+    Release,
+    ExpectedRelease,
+    'should contain a Release resource object model'
+  );
+
+  t.deepEqual(
+    Ticket,
+    ExpectedTicket,
+    'should contain a Ticket resource object model'
+  );
+
+  t.end();
+});
