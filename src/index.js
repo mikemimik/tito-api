@@ -7,7 +7,7 @@ const Releases = require('../lib/releases');
 const api = 'https://api.tito.io/v2';
 
 class TitoApi {
-  constructor(options) {
+  constructor (options) {
     if (!options) {
       throw new Error('missing.param.OPTIONS');
     }
@@ -34,6 +34,30 @@ class TitoApi {
     this.tickets = new Tickets(innerOptions);
     this.events = new Events(innerOptions);
     this.releases = new Releases(innerOptions);
+  }
+
+  static get Event () {
+    return require('../resources/event');
+  }
+
+  static get Activity () {
+    return require('../resources/activity');
+  }
+
+  static get Checkin () {
+    return require('../resources/checkin');
+  }
+
+  static get CheckinList () {
+    return require('../resources/checkinList');
+  }
+
+  static get Release () {
+    return require('../resources/release');
+  }
+
+  static get Ticket () {
+    return require('../resources/ticket');
   }
 }
 
