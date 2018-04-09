@@ -1,8 +1,10 @@
 'use strict';
 
-const Tickets = require('../lib/tickets');
+const Activities = require('../lib/activities');
+const CheckinLists = require('../lib/checkinLists');
 const Events = require('../lib/events');
 const Releases = require('../lib/releases');
+const Tickets = require('../lib/tickets');
 
 const api = 'https://api.tito.io/v2';
 
@@ -31,9 +33,11 @@ class TitoApi {
       team,
       uri: `${api}/${team}`
     };
-    this.tickets = new Tickets(innerOptions);
+    this.activities = new Activities(innerOptions);
+    this.checkinLists = new CheckinLists(innerOptions);
     this.events = new Events(innerOptions);
     this.releases = new Releases(innerOptions);
+    this.tickets = new Tickets(innerOptions);
   }
 
   static get Event () {
