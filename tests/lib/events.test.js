@@ -5,7 +5,8 @@ const test = require('blue-tape');
 
 const Events = proxyquire('../../lib/events', {
   'request-promise': (options) => new Promise((resolve, reject) => {
-    return (options.bail) ? reject(options) : resolve(options);
+    const { description } = options.body.data.attributes;
+    return (description === 'fail this') ? reject(options) : resolve(options);
   }),
   '../src/logger': {
     getLogger: (level) => ({
@@ -79,6 +80,7 @@ test('Events Class Create Method Validation', (t) => {
   t.end();
 });
 
+// TODO(mperrotte): break out property checking into another test
 test('Events Class Create Method Promises', (t) => {
   const options = { defaultRequestOptions: {}, uri: 'api/team' };
 
@@ -87,8 +89,7 @@ test('Events Class Create Method Promises', (t) => {
       .create({
         title: 'Some Event',
         startDate: '2000-01-01',
-        endDate: '2000-01-02',
-        bail: false // USED FOR TESTING ONLY
+        endDate: '2000-01-02'
       })
       .then((output) => {
         t.ok(output.method, 'should have a method property');
@@ -102,6 +103,38 @@ test('Events Class Create Method Promises', (t) => {
           output.headers['Content-Type'],
           'application/json',
           'should have a Content-Type value of application/json'
+        );
+
+        t.ok(output.body, 'should have a body property');
+        const { data } = output.body;
+        t.ok(data, 'should have a property data on body property');
+        t.ok(data.type, 'should have a type property in data object');
+        t.equal(
+          data.type,
+          'events',
+          'should have a type equal to \'evnets\' in data object'
+        );
+        const { attributes } = data;
+        t.ok(attributes, 'should have an attributes property in data object');
+        t.equal(
+          attributes.slug,
+          'some-event',
+          'should have a generated slug from title'
+        );
+      }),
+    new Events(options)
+      .create({
+        title: 'Some Event',
+        startDate: '2000-01-01',
+        endDate: '2000-01-02',
+        description: 'fail this'
+      })
+      .catch((output) => {
+        t.ok(true, 'should throw on failure');
+        t.equal(
+          output.message,
+          'events/create.error',
+          'should throw with appropriate error message'
         );
       })
   ]);
