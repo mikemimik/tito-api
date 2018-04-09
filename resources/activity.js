@@ -2,15 +2,26 @@
 
 class Activity {
   constructor (options) {
-    this.capacity = 0; // INTEGER
-    this.date = ''; // DATE
-    this.description = ''; // STRING
-    this.endTime = ''; // TIME
-    this.name = ''; // STRING
-    this.private = false; // BOOLEAN
-    this.questionIds = []; // ARRAY
-    this.releaseIds = []; // ARRAY
-    this.startTime = ''; // TIME
+    const {
+      capacity,
+      date,
+      description,
+      endTime,
+      name,
+      isPrivate,
+      questionIds,
+      releaseIds,
+      startTime
+    } = options;
+    this.capacity = capacity || 0; // INTEGER
+    this.date = date || ''; // DATE
+    this.description = description || ''; // STRING
+    this.endTime = endTime || ''; // TIME
+    this.name = name || ''; // STRING
+    this.private = isPrivate || false; // BOOLEAN
+    this.questionIds = questionIds || []; // ARRAY
+    this.releaseIds = releaseIds || []; // ARRAY
+    this.startTime = startTime || ''; // TIME
   }
 }
 
