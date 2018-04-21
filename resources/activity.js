@@ -1,7 +1,7 @@
 'use strict';
 
 class Activity {
-  constructor (options) {
+  constructor (options, fromSelf = false) {
     const {
       id,
       type,
@@ -17,14 +17,26 @@ class Activity {
     } = options;
     this.id = id || null;
     this.capacity = capacity || 0; // INTEGER
-    this.date = date || ''; // DATE
+    if (!fromSelf && !date) {
+      throw new Error('missing.option.DATE');
+    }
+    this.date = date || ''; // DATE - REQUIRED
     this.description = description || ''; // STRING
-    this.endTime = endTime || ''; // TIME
-    this.name = name || ''; // STRING
+    if (!fromSelf && !endTime) {
+      throw new Error('missing.option.ENDTIME');
+    }
+    this.endTime = endTime || ''; // TIME - REQUIRED
+    if (!fromSelf && !name) {
+      throw new Error('missing.option.NAME');
+    }
+    this.name = name || ''; // STRING - REQUIRED
     this.private = isPrivate || false; // BOOLEAN
     this.questionIds = questionIds || []; // ARRAY
     this.releaseIds = releaseIds || []; // ARRAY
-    this.startTime = startTime || ''; // TIME
+    if (!fromSelf && !startTime) {
+      throw new Error('missing.option.STARTTIME');
+    }
+    this.startTime = startTime || ''; // TIME - REQUIRED
     this.type = type || 'activities';
   }
 
@@ -45,7 +57,7 @@ class Activity {
       releaseIds: attributes['release-ids'],
       startTime: attributes['start-time']
     };
-    return new Activity(options);
+    return new Activity(options, true);
   }
 }
 
