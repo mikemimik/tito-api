@@ -12,8 +12,10 @@ class Mock {
 }
 
 const TitoApi = proxyquire('../../src/index', {
-  '../lib/tickets': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/activities': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/checkinLists': function mock (innerOptions) { return new Mock(innerOptions); },
   '../lib/events': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/tickets': function mock (innerOptions) { return new Mock(innerOptions); },
   '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); }
 });
 
