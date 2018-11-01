@@ -19,6 +19,36 @@ const Checkins = proxyquire('../../lib/checkins', {
 const Checkin = require('../../resources/checkin');
 
 test('Checkins Class Constructor', (t) => {
+  t.throws(
+    () => new Checkins(),
+    /missing.param.OPTIONS/,
+    'should throw if missing options param'
+  );
+
+  t.throws(
+    () => new Checkins({}),
+    /missing.option.URI/,
+    'should throw if missing URI option'
+  );
+
+  t.equals(
+    new Checkins({ uri: 'a' }).resource,
+    'checkins',
+    'should have a resourse property equal to \'checkins\''
+  );
+
+  t.equals(
+    new Checkins({ uri: 'set-uri' }).uri,
+    'set-uri',
+    'should set uri property equal to uri passed in'
+  );
+
+  t.deepEquals(
+    new Checkins({ defaultRequestOptions: { headers: {} }, uri: 'a' }).requestOptions,
+    { headers: {} },
+    'should set requestOptions property equal to defaultRequestOptions passed in'
+  );
+
   t.end();
 });
 
