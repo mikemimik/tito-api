@@ -17,6 +17,8 @@ const Events = proxyquire('../../lib/events', {
   }
 });
 
+const Event = require('../../resources/event');
+
 test('Events Class Constructor', (t) => {
   t.throws(
     () => new Events(),
@@ -61,20 +63,14 @@ test('Events Class Create Method Validation', (t) => {
 
   t.throws(
     () => new Events(options).create({}),
-    /missing.option.TITLE/,
-    'should throw if missing title option'
+    /missing.option.EVENT/,
+    'should throw if missing event property'
   );
 
   t.throws(
-    () => new Events(options).create({ title: 'a' }),
-    /missing.option.STARTDATE/,
-    'should throw if missing startData option'
-  );
-
-  t.throws(
-    () => new Events(options).create({ title: 'a', startDate: '2000-01-01' }),
-    /missing.option.ENDDATE/,
-    'should throw if missing endDate option'
+    () => new Events(options).create({ event: {} }),
+    /invalid.type.EVENT/,
+    'should throw if event object is not a class instances'
   );
 
   t.end();
@@ -83,14 +79,21 @@ test('Events Class Create Method Validation', (t) => {
 // TODO(mperrotte): break out property checking into another test
 test('Events Class Create Method Promises', (t) => {
   const options = { defaultRequestOptions: {}, uri: 'api/team' };
+  const event = new Event({
+    title: 'Some Event',
+    startDate: '2000-01-01',
+    endDate: '2000-01-02'
+  });
+  const failEvent = new Event({
+    title: 'Some Event',
+    startDate: '2000-01-01',
+    endDate: '2000-01-02',
+    description: 'fail this'
+  });
 
   return Promise.all([
     new Events(options)
-      .create({
-        title: 'Some Event',
-        startDate: '2000-01-01',
-        endDate: '2000-01-02'
-      })
+      .create({ event })
       .then((output) => {
         t.ok(output.method, 'should have a method property');
         t.equals(output.method, 'post', 'should have a method value of POST');
@@ -123,12 +126,7 @@ test('Events Class Create Method Promises', (t) => {
         );
       }),
     new Events(options)
-      .create({
-        title: 'Some Event',
-        startDate: '2000-01-01',
-        endDate: '2000-01-02',
-        description: 'fail this'
-      })
+      .create({ event })
       .catch((output) => {
         t.ok(true, 'should throw on failure');
         t.equal(
