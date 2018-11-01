@@ -77,7 +77,7 @@ test('Events Class Create Method Validation', (t) => {
 });
 
 // TODO(mperrotte): break out property checking into another test
-test('Events Class Create Method Promises', (t) => {
+test('Events Class Create Method', (t) => {
   const options = { defaultRequestOptions: {}, uri: 'api/team' };
   const event = new Event({
     title: 'Some Event',
@@ -126,7 +126,7 @@ test('Events Class Create Method Promises', (t) => {
         );
       }),
     new Events(options)
-      .create({ event })
+      .create({ event: failEvent })
       .catch((output) => {
         t.ok(true, 'should throw on failure');
         t.equal(
