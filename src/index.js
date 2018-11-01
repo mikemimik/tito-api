@@ -2,6 +2,7 @@
 
 const Activities = require('../lib/activities');
 const CheckinLists = require('../lib/checkinLists');
+const Checkins = require('../lib/checkins');
 const Events = require('../lib/events');
 const Releases = require('../lib/releases');
 const Tickets = require('../lib/tickets');
@@ -35,6 +36,7 @@ class TitoApi {
     };
     this.activities = new Activities(innerOptions);
     this.checkinLists = new CheckinLists(innerOptions);
+    this.checkins = new Checkins(innerOptions);
     this.events = new Events(innerOptions);
     this.releases = new Releases(innerOptions);
     this.tickets = new Tickets(innerOptions);
