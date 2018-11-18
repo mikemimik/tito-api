@@ -20,7 +20,7 @@ const TitoApi = proxyquire('../../src/index', {
   '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); },
 });
 
-test.only('TitoApi Class Constructor', (t) => {
+test('TitoApi Class Constructor', (t) => {
   t.throws(
     () => new TitoApi(),
     /missing.param.OPTIONS/,
