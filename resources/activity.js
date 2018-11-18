@@ -13,7 +13,7 @@ class Activity {
       isPrivate,
       questionIds,
       releaseIds,
-      startTime
+      startTime,
     } = options;
     this.id = id || null;
     this.capacity = capacity || 0; // INTEGER
@@ -55,7 +55,7 @@ class Activity {
       isPrivate: attributes['private'],
       questionIds: attributes['question-ids'],
       releaseIds: attributes['release-ids'],
-      startTime: attributes['start-time']
+      startTime: attributes['start-time'],
     };
     return new Activity(options, true);
   }

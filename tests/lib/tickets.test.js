@@ -9,9 +9,9 @@ const Tickets = proxyquire('../../lib/tickets', {
     getLogger: (level) => ({
       silly: () => {},
       debug: () => {},
-      error: () => {}
-    })
-  }
+      error: () => {},
+    }),
+  },
 });
 
 test('Tickets Class Constructor', (t) => {

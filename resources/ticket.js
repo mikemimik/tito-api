@@ -5,14 +5,14 @@ const TICKET_STATE = {
   'COMPLETE': 1,
   'INCOMPLETE': 2,
   'REMINDER': 3,
-  'VOID': 4
+  'VOID': 4,
 };
 
 class Ticket {
   constructor (options, fromSelf = false) {
     const {
-      id,
-      type,
+      // id,
+      // type,
       answers,
       companyName,
       email,
@@ -24,7 +24,7 @@ class Ticket {
       state,
       tags,
       temporary,
-      testMode
+      testMode,
     } = options;
     this.answers = answers || {}; // HASH
     this.companyName = companyName || ''; // STRING
@@ -61,7 +61,7 @@ class Ticket {
       reference,
       state,
       tags,
-      temporary
+      temporary,
     } = attributes;
     const options = {
       id,
@@ -77,7 +77,7 @@ class Ticket {
       state,
       tags,
       temporary,
-      testMode: attributes['test-mode']
+      testMode: attributes['test-mode'],
     };
     return new Ticket(options, true);
   }

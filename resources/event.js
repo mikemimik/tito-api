@@ -18,7 +18,7 @@ class Event {
       slug,
       startDate,
       testMode,
-      title
+      title,
     } = options;
     // TODO(mperrotte): validation for this resource
     this.id = id || null;
@@ -64,7 +64,7 @@ class Event {
       slug,
       startDate: attributes['start-date'],
       testMode: attributes['test-mode'],
-      title
+      title,
     };
     return new Event(options, true);
   }

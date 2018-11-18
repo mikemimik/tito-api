@@ -12,7 +12,7 @@ class CheckinList {
       showCompanyName,
       showEmail,
       showPhoneNumber,
-      title
+      title,
     } = options;
     this.id = id || null;
     this.type = type || 'checkin-lists';
@@ -43,7 +43,7 @@ class CheckinList {
       showCompanyName: attributes['show-company-name'],
       showEmail: attributes['show-email'],
       showPhoneNumber: attributes['show-phone-number'],
-      title
+      title,
     };
     return new CheckinList(options, true);
   }

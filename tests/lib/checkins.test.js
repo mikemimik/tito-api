@@ -11,9 +11,9 @@ const Checkins = proxyquire('../../lib/checkins', {
     getLogger: (level) => ({
       silly: () => {},
       debug: () => {},
-      error: () => {}
-    })
-  }
+      error: () => {},
+    }),
+  },
 });
 
 const Checkin = require('../../resources/checkin');

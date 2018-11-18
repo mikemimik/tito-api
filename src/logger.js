@@ -5,7 +5,7 @@ const Winston = require('winston');
 const DefaultTransport = new Winston.transports.Console({
   colorize: true,
   prettyPrint: true,
-  depth: 3
+  depth: 3,
 });
 
 exports.getLogger = (level) => {
@@ -13,6 +13,6 @@ exports.getLogger = (level) => {
 
   return Winston.createLogger({
     level,
-    transports: [ DefaultTransport ]
+    transports: [ DefaultTransport ],
   });
 };

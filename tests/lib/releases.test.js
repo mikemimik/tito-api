@@ -9,9 +9,9 @@ const Releases = proxyquire('../../lib/releases', {
     getLogger: (level) => ({
       silly: () => {},
       debug: () => {},
-      error: () => {}
-    })
-  }
+      error: () => {},
+    }),
+  },
 });
 
 test('Releases Class Constructor', (t) => {

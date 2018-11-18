@@ -12,9 +12,9 @@ const Events = proxyquire('../../lib/events', {
     getLogger: (level) => ({
       silly: () => {},
       debug: () => {},
-      error: () => {}
-    })
-  }
+      error: () => {},
+    }),
+  },
 });
 
 const Event = require('../../resources/event');
@@ -82,13 +82,13 @@ test('Events Class Create Method', (t) => {
   const event = new Event({
     title: 'Some Event',
     startDate: '2000-01-01',
-    endDate: '2000-01-02'
+    endDate: '2000-01-02',
   });
   const failEvent = new Event({
     title: 'Some Event',
     startDate: '2000-01-01',
     endDate: '2000-01-02',
-    description: 'fail this'
+    description: 'fail this',
   });
 
   return Promise.all([
@@ -134,7 +134,7 @@ test('Events Class Create Method', (t) => {
           'events/create.error',
           'should throw with appropriate error message'
         );
-      })
+      }),
   ]);
 });
 

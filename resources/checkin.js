@@ -5,7 +5,7 @@ class Checkin {
     const {
       id,
       type,
-      createdAt
+      createdAt,
     } = options;
     this.id = id || null;
     this.type = type || 'checkins';
@@ -20,7 +20,7 @@ class Checkin {
     const options = {
       id,
       type,
-      createdAt: attributes['created-at']
+      createdAt: attributes['created-at'],
     };
     return new Checkin(options, true);
   }

@@ -25,14 +25,14 @@ class TitoApi {
     const defaultRequestOptions = {
       headers: {
         'Authorization': `Token token=${apiKey}`,
-        'Accept': 'application/vnd.api+json'
+        'Accept': 'application/vnd.api+json',
       },
-      json: true
+      json: true,
     };
     const innerOptions = {
       defaultRequestOptions,
       team,
-      uri: `${api}/${team}`
+      uri: `${api}/${team}`,
     };
     this.activities = new Activities(innerOptions);
     this.checkinLists = new CheckinLists(innerOptions);

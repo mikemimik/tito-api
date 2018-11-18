@@ -6,6 +6,7 @@
   "scripts": {
     "test": "tape tests/**/*.test.js",
     "test:ci": "npm run coverage",
+    "lint": "semistandard",
     "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [
