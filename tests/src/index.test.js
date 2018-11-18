@@ -14,12 +14,13 @@ class Mock {
 const TitoApi = proxyquire('../../src/index', {
   '../lib/activities': function mock (innerOptions) { return new Mock(innerOptions); },
   '../lib/checkinLists': function mock (innerOptions) { return new Mock(innerOptions); },
+  '../lib/checkins': function mock (innerOptions) { return new Mock(innerOptions); },
   '../lib/events': function mock (innerOptions) { return new Mock(innerOptions); },
   '../lib/tickets': function mock (innerOptions) { return new Mock(innerOptions); },
-  '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); }
+  '../lib/releases': function mock (innerOptions) { return new Mock(innerOptions); },
 });
 
-test('TitoApi Class Constructor', (t) => {
+test.only('TitoApi Class Constructor', (t) => {
   t.throws(
     () => new TitoApi(),
     /missing.param.OPTIONS/,
@@ -42,31 +43,30 @@ test('TitoApi Class Constructor', (t) => {
     defaultRequestOptions: {
       headers: {
         'Authorization': 'Token token=token',
-        'Accept': 'application/vnd.api+json'
+        'Accept': 'application/vnd.api+json',
       },
-      json: true
+      json: true,
     },
     team: 'main',
-    uri: 'https://api.tito.io/v2/main'
+    uri: 'https://api.tito.io/v2/main',
   };
 
-  t.deepEquals(
-    new TitoApi({ team: 'main', apiKey: 'token' }).tickets,
-    innerOptionExpectation,
-    'should construct innerOptions correctly - tickets'
+  const titoApi = new TitoApi({ team: 'main', apiKey: 'token' });
+  const classProperties = Object.keys(titoApi);
+
+  t.equals(
+    classProperties.length,
+    6,
+    'should have correct number of properties',
   );
 
-  t.deepEquals(
-    new TitoApi({ team: 'main', apiKey: 'token' }).events,
-    innerOptionExpectation,
-    'should construct innerOptions correctly - events'
-  );
-
-  t.deepEquals(
-    new TitoApi({ team: 'main', apiKey: 'token' }).releases,
-    innerOptionExpectation,
-    'should construct innerOptions correctly - releases'
-  );
+  classProperties.forEach((prop) => {
+    t.deepEquals(
+      new TitoApi({ team: 'main', apiKey: 'token' })[prop],
+      innerOptionExpectation,
+      `should construct innerOptions correctly - ${prop}`,
+    );
+  });
 
   t.end();
 });
@@ -78,7 +78,7 @@ test('TitoApi Module Structure', (t) => {
     Checkin,
     CheckinList,
     Release,
-    Ticket
+    Ticket,
   } = TitoApi;
 
   const ExpectedEvent = require('../../resources/event');
