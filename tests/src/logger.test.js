@@ -29,5 +29,11 @@ test('Logger', (t) => {
     'function',
     'should have silly function if level was set to debug'
   );
+
+  t.equals(
+    typeof a.info,
+    'function',
+    'should have info function if level was set to debug'
+  );
   t.end();
 });

@@ -11,7 +11,7 @@ const DefaultTransport = new Winston.transports.Console({
 exports.getLogger = (level) => {
   if (!level) throw new Error('invalid.function.call');
 
-  return new Winston.Logger({
+  return Winston.createLogger({
     level,
     transports: [ DefaultTransport ]
   });
